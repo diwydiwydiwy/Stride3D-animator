@@ -12,30 +12,44 @@ using System.Diagnostics.Eventing.Reader;
 using Stride.Animations;
 using Avalonia.Controls;
 using Stride.Engine.Design;
+using Avalonia.Threading;
 
 namespace AnimatorExtensionTest
 {
     public class Animator : StartupScript
     {
-        private Window _animatorWindow;
+        //I'm very sorry for making these guys static
+        private static Window _animatorWindow;
         private bool _showAnimator;
-        private bool _firstStart;
-        private bool FirstStart { get => _firstStart; set { _firstStart = value; } }
+        private static bool _firstStart = true;
+        private static bool FirstStart { get => _firstStart; set { _firstStart = value; } }
         public bool OpenAnimator 
         { 
             get => _showAnimator; 
             set 
             {
-                AvaloniaProgram.BuildAvaloniaApp().SetupWithoutStarting();
-                FirstStart = false;
-                if (_animatorWindow != null) 
-                { 
-                    _animatorWindow.Close(); 
-                    _animatorWindow = null;
-                    return; 
+                if (true) return;
+                //if (_showAnimator == value) { _showAnimator = value; return; }
+                //_showAnimator = value;
+
+                if (FirstStart)
+                {
+                    AvaloniaProgram.BuildAvaloniaApp().SetupWithoutStarting();
+                    FirstStart = false;
                 }
-                _animatorWindow = new MainWindow();
-                _animatorWindow.Show();
+
+                if (_animatorWindow == null)
+                {
+                    _animatorWindow = new MainWindow();
+                    Dispatcher.UIThread.Invoke(() => _animatorWindow.Show());
+                    return;
+                }
+                else
+                {
+                    Dispatcher.UIThread.Invoke( () => _animatorWindow.Close());
+                    _animatorWindow = null;
+                    return;
+                }
             }
         }
 
