@@ -1,4 +1,7 @@
-
+AnimatorExtensionTest/
+AnimatorExtensionTest.Windows/
+Bin/
+AnimatorExtensionTest.sln
 *.user
 *.lock
 *.lock.json
