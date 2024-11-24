@@ -1,4 +1,8 @@
 using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+using System.Runtime.InteropServices;
+using System;
+using Avalonia.Platform;
 
 namespace AvaloniaApplicationForStride
 {
@@ -7,6 +11,16 @@ namespace AvaloniaApplicationForStride
         public MainWindow()
         {
             InitializeComponent();
+            Topmost = true;
+        }
+
+        private void InitializeComponent()
+        {
+            Closing += (s, e) =>
+            {
+                ((Window)s).Hide();
+                e.Cancel = true;
+            };
         }
     }
 }
