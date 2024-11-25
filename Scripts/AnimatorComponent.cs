@@ -26,8 +26,8 @@ namespace AnimatorExtension
     [DefaultEntityComponentProcessor(typeof(AnimatorProcessor), ExecutionMode = ExecutionMode.Editor)]
     public class AnimatorComponent: EntityComponent
     {
-        [DataMemberIgnore] private Window _animatorWindow;
-        public List<ProceduralAnimation> Animations;
+        private Window _animatorWindow;
+        public List<ProceduralAnimation> Animations = [];
         [DataMemberIgnore] public Logger Log { get; set; }
 
         public void InitializeAnimator() 

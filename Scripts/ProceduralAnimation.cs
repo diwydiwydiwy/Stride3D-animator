@@ -15,13 +15,16 @@ namespace AnimatorExtension
 {
     [DataContract]
     [ComponentCategory("Animator")]
-    public class ProceduralAnimation: EntityComponent
+    public class ProceduralAnimation
     {
-        public List<AnimationTrack> AnimationTracks { get; set; }
+        //public List<AnimationTrack> AnimationTracks { get; set; } = new List<AnimationTrack>();
+        public List<AnimationTrack> AnimationTracks = new();
         public bool IsPlaying { get; private set; }
         public AnimationRepeatMode RepeatMode { get; set; }
-        [DataMemberRange(0,int.MaxValue)] public float TimeFactor { get; set; }
+        public float TimeFactor { get; set; }
         public float CurrentTime { get; private set; }
+        public ProceduralAnimation() { }
+
         public void CreateAnimationTrack(Entity entity, string trackName, EntityComponent componentName, string animatedProperty, AnimationCurve curve) 
         {
             var track = new AnimationTrack(entity.GetOrCreate<AnimationComponent>(), trackName, new AnimationClip() { Duration = TimeSpan.FromSeconds(1f) }, curve);

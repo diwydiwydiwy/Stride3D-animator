@@ -12,7 +12,7 @@ namespace AnimatorExtension
 {
     [DataContract]
     [ComponentCategory("Animator")]
-    public class AnimationTrack : ScriptComponent
+    public class AnimationTrack
     {
         public AnimationTrack(AnimationComponent animationComponent, string name, AnimationClip clip, AnimationCurve curve)
         {
@@ -24,14 +24,9 @@ namespace AnimatorExtension
         }
         public AnimationTrack()
         {
-            AnimationComponent = new();
             Name = "New animation";
             Clip = new();
             Enabled = true;
-        }
-        ~AnimationTrack()
-        {
-            Entity.Remove<AnimationComponent>();
         }
         public AnimationComponent AnimationComponent { get; set; }
         public string Name { get; set; }
